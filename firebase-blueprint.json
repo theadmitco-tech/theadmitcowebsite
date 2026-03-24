@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about the MBA aspirant.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique ID of the user." },
+        "displayName": { "type": "string", "description": "The user's full name." },
+        "email": { "type": "string", "format": "email", "description": "The user's email address." },
+        "photoURL": { "type": "string", "format": "uri", "description": "The user's profile picture URL." },
+        "targetSchools": { "type": "array", "items": { "type": "string" }, "description": "List of target MBA schools." },
+        "gmatScore": { "type": "number", "description": "The user's GMAT score." },
+        "workExperience": { "type": "number", "description": "Years of work experience." },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "The user's role in the system." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user profile was created." }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "ConsultationRequest": {
+      "title": "Consultation Request",
+      "description": "A request for expert guidance.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "The unique ID of the request." },
+        "userId": { "type": "string", "description": "The ID of the user who made the request." },
+        "name": { "type": "string", "description": "Name of the person requesting consultation." },
+        "email": { "type": "string", "format": "email", "description": "Email for contact." },
+        "message": { "type": "string", "description": "The message or specific questions." },
+        "status": { "type": "string", "enum": ["pending", "contacted", "completed"], "description": "Current status of the request." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the request was made." }
+      },
+      "required": ["id", "userId", "name", "email", "status", "createdAt"]
+    },
+    "Application": {
+      "title": "College Application",
+      "description": "A tracker for an MBA application.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "The unique ID of the application." },
+        "userId": { "type": "string", "description": "The ID of the user." },
+        "schoolName": { "type": "string", "description": "The name of the MBA school." },
+        "round": { "type": "string", "description": "The application round (e.g., Round 1, Round 2)." },
+        "deadline": { "type": "string", "format": "date", "description": "The application deadline." },
+        "status": { "type": "string", "enum": ["not-started", "in-progress", "submitted", "interview-invite", "accepted", "waitlisted", "rejected"], "description": "Current status of the application." },
+        "notes": { "type": "string", "description": "Any notes about the application." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "When the application was last updated." }
+      },
+      "required": ["id", "userId", "schoolName", "status", "updatedAt"]
+    },
+    "Resource": {
+      "title": "MBA Resource",
+      "description": "A guide or resource for MBA aspirants.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "The unique ID of the resource." },
+        "title": { "type": "string", "description": "The title of the resource." },
+        "description": { "type": "string", "description": "A brief description." },
+        "category": { "type": "string", "enum": ["GMAT", "Essays", "Interviews", "Networking"], "description": "The category of the resource." },
+        "content": { "type": "string", "description": "The content of the resource (Markdown)." },
+        "author": { "type": "string", "description": "The author of the resource." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the resource was published." }
+      },
+      "required": ["id", "title", "category", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents."
+    },
+    "/consultationRequests/{requestId}": {
+      "schema": "ConsultationRequest",
+      "description": "Requests for expert guidance."
+    },
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "College application tracker documents."
+    },
+    "/resources/{resourceId}": {
+      "schema": "Resource",
+      "description": "MBA resources and guides."
+    }
+  }
+}

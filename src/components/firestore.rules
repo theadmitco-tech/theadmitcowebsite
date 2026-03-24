@@ -1,0 +1,165 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: userId (UID)
+    // Fields:
+    //   - uid: string (required, immutable) - The unique ID of the user.
+    //   - displayName: string (optional) - The user's full name.
+    //   - email: string (required, immutable) - The user's email address.
+    //   - photoURL: string (optional) - The user's profile picture URL.
+    //   - targetSchools: list (optional) - List of target MBA schools.
+    //   - gmatScore: number (optional) - The user's GMAT score.
+    //   - workExperience: number (optional) - Years of work experience.
+    //   - role: string (required) - The user's role in the system (user/admin).
+    //   - createdAt: timestamp (required, immutable) - When the user profile was created.
+    //
+    // Collection: consultationRequests
+    // Document ID: requestId
+    // Fields:
+    //   - id: string (required, immutable) - The unique ID of the request.
+    //   - userId: string (required, immutable) - The ID of the user who made the request.
+    //   - name: string (required) - Name of the person requesting consultation.
+    //   - email: string (required) - Email for contact.
+    //   - message: string (optional) - The message or specific questions.
+    //   - status: string (required) - Current status of the request (pending/contacted/completed).
+    //   - createdAt: timestamp (required, immutable) - When the request was made.
+    //
+    // Collection: applications
+    // Document ID: applicationId
+    // Fields:
+    //   - id: string (required, immutable) - The unique ID of the application.
+    //   - userId: string (required, immutable) - The ID of the user.
+    //   - schoolName: string (required) - The name of the MBA school.
+    //   - round: string (optional) - The application round.
+    //   - deadline: string (optional) - The application deadline.
+    //   - status: string (required) - Current status (not-started/in-progress/submitted/etc).
+    //   - notes: string (optional) - Any notes about the application.
+    //   - updatedAt: timestamp (required) - When the application was last updated.
+    //
+    // Collection: resources
+    // Document ID: resourceId
+    // Fields:
+    //   - id: string (required, immutable) - The unique ID of the resource.
+    //   - title: string (required) - The title of the resource.
+    //   - description: string (optional) - A brief description.
+    //   - category: string (required) - The category (GMAT/Essays/Interviews/Networking).
+    //   - content: string (required) - The content of the resource (Markdown).
+    //   - author: string (optional) - The author of the resource.
+    //   - createdAt: timestamp (required, immutable) - When the resource was published.
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          (request.auth.token.email == "theaceclub.tac@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function areImmutableFieldsUnchanged(fields) {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(fields);
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidUser(data) {
+      return hasRequiredFields(['uid', 'email', 'role', 'createdAt']) &&
+             hasOnlyAllowedFields(['uid', 'displayName', 'email', 'photoURL', 'targetSchools', 'gmatScore', 'workExperience', 'role', 'createdAt']) &&
+             data.uid == request.auth.uid &&
+             data.email == request.auth.token.email &&
+             data.role in ['user', 'admin'] &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidConsultationRequest(data) {
+      return hasRequiredFields(['id', 'userId', 'name', 'email', 'status', 'createdAt']) &&
+             hasOnlyAllowedFields(['id', 'userId', 'name', 'email', 'message', 'status', 'createdAt']) &&
+             data.userId == request.auth.uid &&
+             isValidEmail(data.email) &&
+             data.status in ['pending', 'contacted', 'completed'] &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidApplication(data) {
+      return hasRequiredFields(['id', 'userId', 'schoolName', 'status', 'updatedAt']) &&
+             hasOnlyAllowedFields(['id', 'userId', 'schoolName', 'round', 'deadline', 'status', 'notes', 'updatedAt']) &&
+             data.userId == request.auth.uid &&
+             data.status in ['not-started', 'in-progress', 'submitted', 'interview-invite', 'accepted', 'waitlisted', 'rejected'] &&
+             data.updatedAt is timestamp;
+    }
+
+    function isValidResource(data) {
+      return hasRequiredFields(['id', 'title', 'category', 'content', 'createdAt']) &&
+             hasOnlyAllowedFields(['id', 'title', 'description', 'category', 'content', 'author', 'createdAt']) &&
+             data.category in ['GMAT', 'Essays', 'Interviews', 'Networking'] &&
+             data.createdAt is timestamp;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAuthenticated() && isValidUser(request.resource.data) && (request.resource.data.role == 'user' || isAdmin());
+      allow update: if isAuthenticated() && isValidUser(request.resource.data) && (isOwner(userId) || isAdmin()) && 
+                    areImmutableFieldsUnchanged(['uid', 'email', 'createdAt']) &&
+                    (request.resource.data.role == resource.data.role || isAdmin());
+    }
+
+    match /consultationRequests/{requestId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && isValidConsultationRequest(request.resource.data);
+      allow update: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin()) && 
+                    isValidConsultationRequest(request.resource.data) &&
+                    areImmutableFieldsUnchanged(['id', 'userId', 'createdAt']);
+      allow delete: if isAdmin();
+    }
+
+    match /applications/{applicationId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && isValidApplication(request.resource.data);
+      allow update: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin()) && 
+                    isValidApplication(request.resource.data) &&
+                    areImmutableFieldsUnchanged(['id', 'userId']);
+      allow delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /resources/{resourceId} {
+      allow read: if true; // Resources are public
+      allow create, update, delete: if isAdmin() && isValidResource(request.resource.data);
+    }
+  }
+}
