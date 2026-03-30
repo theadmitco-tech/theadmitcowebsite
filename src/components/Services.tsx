@@ -9,19 +9,20 @@ const Services: React.FC = () => {
       id: 'gmat',
       tag: 'Early-stage prep',
       title: 'Tight GMAT Batch',
-      who: 'Starting your MBA journey and want structured GMAT prep',
+      who: 'Learn from 98 and 99%ilers to get your GMAT score in 3 months',
       includes: [
-        'Structured study plan',
-        'Batch-based learning',
-        'Strategy + discipline',
-        'Application foundation'
+        'Weekend batches',
+        'Small cohorts',
+        'Carefully crafted question bank',
+        'Mock Analysis',
+        '4 extra sessions on your weaker topics'
       ],
       primaryCTA: {
         label: 'Learn more →',
         link: '/resources?source=gmat'
       },
       secondaryCTA: {
-        label: 'Ask on WhatsApp',
+        label: 'Learn more about next GMAT batch',
         link: 'https://wa.me/917689992562?text=Hi, I want to know more about the GMAT batch.'
       },
       type: 'entry'
@@ -56,7 +57,8 @@ const Services: React.FC = () => {
       includes: [
         'Mock interviews',
         'Feedback sessions',
-        'Final coaching'
+        'Coaching sessions',
+        'Alum from your background as an add on service'
       ],
       primaryCTA: {
         label: 'Book interview prep session →',
@@ -77,7 +79,7 @@ const Services: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-24">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -96,7 +98,7 @@ const Services: React.FC = () => {
               Whether you're preparing for the GMAT or converting interview calls — we work with you at every stage.
             </p>
             <p className="text-sm text-gray-400 italic font-light">
-              You don’t need to commit to everything — start with what you need.
+              Start early to get ahead of the competition.
             </p>
           </motion.div>
         </div>
@@ -113,8 +115,8 @@ const Services: React.FC = () => {
               whileHover={{ y: -6 }}
               className={`
                 relative rounded-3xl p-10 flex flex-col transition-all duration-300
-                ${service.type === 'primary' 
-                  ? 'bg-white shadow-[0_30px_70px_rgba(2,47,135,0.12)] z-10 md:scale-105 border border-blue-50' 
+                ${service.type === 'primary'
+                  ? 'bg-white shadow-[0_30px_70px_rgba(2,47,135,0.12)] z-10 md:scale-105 border border-blue-50'
                   : service.type === 'secondary'
                     ? 'bg-white shadow-xl shadow-black/5 border border-gray-100'
                     : 'bg-[#FAFAFA] border border-gray-200 shadow-sm'
@@ -147,7 +149,7 @@ const Services: React.FC = () => {
               {/* Dual CTAs */}
               <div className="mt-auto flex flex-col gap-3">
                 {service.primaryCTA.link.startsWith('http') ? (
-                  <a 
+                  <a
                     href={service.primaryCTA.link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -162,7 +164,7 @@ const Services: React.FC = () => {
                     <span>{service.primaryCTA.label}</span>
                   </a>
                 ) : (
-                  <Link 
+                  <Link
                     to={service.primaryCTA.link}
                     className={`
                       w-full py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all font-semibold tracking-wide text-sm
@@ -175,8 +177,8 @@ const Services: React.FC = () => {
                     <span>{service.primaryCTA.label}</span>
                   </Link>
                 )}
-                
-                <a 
+
+                <a
                   href={service.secondaryCTA.link}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -197,7 +199,7 @@ const Services: React.FC = () => {
         </div>
 
         {/* Secondary Bottom Bridge */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -206,10 +208,10 @@ const Services: React.FC = () => {
           <p className="text-gray-500 mb-4 font-light italic">
             "We focus on quality, not quantity. We only work with a handful of applicants each cycle."
           </p>
-          <Link to="/consultation" className="inline-flex items-center gap-2 text-brand-blue text-sm border-b border-brand-blue/20 pb-0.5 hover:border-brand-blue transition-all font-medium group">
+          <a href="https://calendar.app.google/vC5Rx3vFJmPktLKu8" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-brand-blue text-sm border-b border-brand-blue/20 pb-0.5 hover:border-brand-blue transition-all font-medium group">
             <span>Learn how we work in detail</span>
             <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-          </Link>
+          </a>
         </motion.div>
       </div>
     </section>

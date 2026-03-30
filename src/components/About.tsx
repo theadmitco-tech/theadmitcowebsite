@@ -6,7 +6,7 @@ const About: React.FC = () => {
   const points = [
     {
       title: 'Built like a project',
-      description: 'We don’t "edit essays". We run your application like a project — with timelines, accountability, and structure.',
+      description: 'We don’t "edit essays". We run your application like a project - with timelines, accountability, and structure.',
       icon: <Timer size={24} className="text-blue-600" />
     },
     {
@@ -16,7 +16,7 @@ const About: React.FC = () => {
     },
     {
       title: 'Small, high-touch',
-      description: 'We work with a limited number of applicants to ensure depth, not volume. You get thinkers, not template-readers.',
+      description: 'We work with a limited number of applicants to ensure depth, not volume. You get us to think with you.',
       icon: <Zap size={24} className="text-blue-600" />
     }
   ];
@@ -28,16 +28,16 @@ const About: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         {/* Section 1: Hook */}
         <div className="max-w-4xl mb-24">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-serif font-light mb-8 tracking-tight leading-[1.1] text-gray-900"
           >
-            Built by applicants who’ve <br />
-            <span className="italic">been through it</span> — not consultants reading from a playbook.
+            Built by ISB alums who’ve <br />
+            <span className="italic">been through it</span> — and understand your pain points.
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -59,9 +59,9 @@ const About: React.FC = () => {
                 viewport={{ once: true }}
                 className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/5 border border-gray-100"
               >
-                <img 
-                  src="/founders/founder-1.png" 
-                  alt="Founder A" 
+                <img
+                  src="/founders/founder-1.png"
+                  alt="Founder A"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -72,14 +72,14 @@ const About: React.FC = () => {
                 transition={{ delay: 0.1 }}
                 className="aspect-[4/5] rounded-[2rem] overflow-hidden translate-y-12 shadow-2xl shadow-black/5 border border-gray-100"
               >
-                <img 
-                  src="/founders/founder-2.png" 
-                  alt="Founder B" 
+                <img
+                  src="/founders/founder-2.png"
+                  alt="Founder B"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
             </div>
-            
+
             {/* Decorative Element */}
             <div className="absolute -z-10 -top-8 -left-8 w-32 h-32 bg-blue-50/50 rounded-full blur-3xl" />
             <div className="absolute -z-10 -bottom-8 -right-8 w-40 h-40 bg-blue-50/50 rounded-full blur-3xl" />
@@ -90,19 +90,24 @@ const About: React.FC = () => {
             <div className="space-y-6">
               <p className="small-caps text-blue-600 font-bold mb-4">Our Story</p>
               <h3 className="text-3xl font-serif text-gray-900 leading-snug">
-                "We built the system <br /> we wish we had."
+
               </h3>
               <div className="space-y-6 text-gray-600 font-light leading-relaxed text-lg">
                 <p>
-                  AdmitCo started as a way to help friends navigate MBA applications without guesswork. 
-                  What began with sharing timelines and interview prep frameworks quickly grew — because the problem was real.
+                  AdmitCo was started by Tanya and Ishan.
+
+
+                  ISB was Tanya's second Master after completing her graduation from Christ and Masters in English literature from Warwick.
+                  Before ISB she worked for Athena education, one of the biggest names in the international undergrad admissions industry. She has helped students get into IVY leagues, Oxbridge, and other top universities across the globe.
+                  She is a writer and loves listening to peoples stories, which helps her make an excellent essay help.
                 </p>
                 <p>
-                  Most applicants don’t fail because they lack ability. They fail because they lack structure. 
-                  In a process that feels like a black box, structure is the only thing that provides clarity.
+                  Ishan did his graduation from BITS Pilani. He has worked in consulting and across growth roles in startups like Urban Company and Cult Fit.
+                  He wanted to explore building for himself and this is something that resonated deeply with him because of his own MBA admissions journey.
+                  Tanya and Ishan were neighbours at ISB.
                 </p>
                 <p className="text-gray-900 font-medium">
-                  That’s what we fix.
+
                 </p>
               </div>
             </div>
@@ -131,28 +136,16 @@ const About: React.FC = () => {
           ))}
         </div>
 
-        {/* Section 4: Credibility Strip */}
-        <div className="py-12 border-y border-gray-100 flex flex-col md:flex-row items-center justify-between gap-8 mb-32">
-          <p className="text-gray-400 font-light uppercase tracking-widest text-xs">Helped across</p>
-          <div className="flex flex-wrap justify-center gap-10 md:gap-16">
-            {schools.map(school => (
-              <span key={school} className="text-2xl md:text-3xl font-serif text-gray-300 hover:text-gray-900 transition-colors cursor-default">
-                {school}
-              </span>
-            ))}
-          </div>
-          <p className="text-gray-400 font-light text-xs hidden lg:block">Starts with structure. Ends with admits.</p>
-        </div>
 
         {/* Section 5: CTA */}
         <div className="text-center">
-          <motion.div 
-            whileHover={{ y: -5 }} 
+          <motion.div
+            whileHover={{ y: -5 }}
             className="inline-block"
           >
             <p className="text-gray-400 mb-6 font-light">Not sure where you stand?</p>
-            <a 
-              href="https://calendar.app.google/vC5Rx3vFJmPktLKu8" 
+            <a
+              href="https://calendar.app.google/vC5Rx3vFJmPktLKu8"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary group flex items-center gap-3 px-10 py-5 text-lg"

@@ -47,7 +47,7 @@ const SuccessStories: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-24">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -65,7 +65,7 @@ const SuccessStories: React.FC = () => {
             <p className="text-xl text-gray-600 font-light leading-relaxed">
               Different starting points. One outcome — admits.
             </p>
-            <p className="text-sm text-gray-400 mt-4 italic font-light tracking-wide">
+            <p className="text-sm text-gray-40 mt-4 italic font-light tracking-wide">
               Whether you’re just starting or need immediate guidance for a last minute interview call — we’ve helped at every stage.
             </p>
           </motion.div>
@@ -83,8 +83,8 @@ const SuccessStories: React.FC = () => {
               whileHover={{ y: -6 }}
               className={`
                 relative rounded-3xl p-10 flex flex-col transition-all duration-300
-                ${story.highlight 
-                  ? 'bg-gradient-to-br from-white to-blue-50/30 shadow-[0_30px_70px_rgba(2,47,135,0.12)] z-10 md:scale-105 border-t-2 border-brand-blue/20' 
+                ${story.highlight
+                  ? 'bg-gradient-to-br from-white to-blue-50/30 shadow-[0_30px_70px_rgba(2,47,135,0.12)] z-10 md:scale-105 border-t-2 border-brand-blue/20'
                   : story.muted
                     ? 'bg-[#FAFAFA]/80 border border-gray-200/50 shadow-sm'
                     : 'bg-white border border-gray-100 shadow-[0_15px_40px_rgba(0,0,0,0.04)]'
@@ -107,7 +107,7 @@ const SuccessStories: React.FC = () => {
                   {story.outcome}
                 </h3>
               </div>
-              
+
               <div className="flex-grow mb-10">
                 <p className="text-lg md:text-xl text-gray-800 leading-[1.6] font-light italic">
                   {story.quote}
@@ -124,7 +124,7 @@ const SuccessStories: React.FC = () => {
         </div>
 
         {/* Featured Quote Highlight Block */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}

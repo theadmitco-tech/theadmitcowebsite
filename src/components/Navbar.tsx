@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const sections = ['how-it-works', 'success-stories', 'services', 'resources', 'about'];
-    
+
     const observerOptions = {
       root: null,
       rootMargin: '-40% 0px -40% 0px',
@@ -65,10 +65,10 @@ const Navbar: React.FC = () => {
           onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           className="flex items-center transition-opacity hover:opacity-80 cursor-pointer"
         >
-          <img 
-            src="/Main%20logo.svg" 
-            alt="The Admit Co. Logo" 
-            className="h-10 md:h-12 w-auto object-contain" 
+          <img
+            src="/Main%20logo.svg"
+            alt="The Admit Co. Logo"
+            className="h-24 md:h-32 w-auto object-contain"
           />
         </a>
 
@@ -78,8 +78,8 @@ const Navbar: React.FC = () => {
               key={item.id}
               onClick={() => scrollTo(item.id)}
               className={`small-caps transition-all duration-300 cursor-pointer text-left relative py-1
-                ${activeSection === item.id 
-                  ? 'text-brand-cream font-bold' 
+                ${activeSection === item.id
+                  ? 'text-brand-cream font-bold'
                   : 'text-brand-cream/60 hover:text-brand-cream'
                 }
               `}
@@ -93,9 +93,14 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
-          <Link to="/consultation" className="btn-primary py-2 px-5 text-sm">
+          <a 
+            href="https://calendar.app.google/vC5Rx3vFJmPktLKu8" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="btn-primary py-2 px-5 text-sm whitespace-nowrap"
+          >
             Get Your Profile Reviewed
-          </Link>
+          </a>
         </div>
       </div>
     </nav>

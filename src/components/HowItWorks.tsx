@@ -13,25 +13,25 @@ const steps: Step[] = [
     icon: <Map size={24} />,
     title: 'Strategy & Timeline',
     description:
-      'Define your target schools, application rounds, and a detailed timeline — down to test scores, recommendations, and deadlines.',
+      'Shortlist the schools where your profile fits the best. Create a detailed timeline, detailed to shooting your LoR mail, to hold both of us accountable.',
   },
   {
     icon: <BookOpen size={24} />,
     title: 'GMAT & Profile Foundation',
     description:
-      'Structured GMAT support combined with building a strong, reusable CV that positions you effectively across applications.',
+      'Start early with us to get regular GMAT/GRE support and strengthen your profile. We start the process with building your CV, at least 7-8 iterations.',
   },
   {
     icon: <PenTool size={24} />,
     title: 'Story & Essays',
     description:
-      'Through guided brainstorming and structured exercises, we help craft a compelling narrative that stands out.',
+      'We do a few creative exercies to know you better and then start working on your essays, so that no detail gets missed out. Work on a detailed worksheet to draft and edit your essays',
   },
   {
     icon: <FileText size={24} />,
     title: 'Applications & Recommendations',
     description:
-      'Execute every application detail with precision — from forms to guiding recommenders and ensuring consistency.',
+      'We sit with you to fill out the applications, and also help you with selecting your recommenders.',
   },
   {
     icon: <Trophy size={24} />,
@@ -65,14 +65,14 @@ const HowItWorks: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.7 }}
-        className="text-center mb-36 max-w-md"
+        className="text-center mb-20 max-w-md"
       >
         <span className="text-[10px] uppercase tracking-[3px] text-text-dark/20 mb-5 block font-medium">
           Our Process
         </span>
         <h2 className="font-serif text-5xl md:text-6xl font-light mb-6">How it works</h2>
         <p className="text-text-dark/55 text-lg font-light leading-relaxed">
-          A structured, end-to-end process — from GMAT to final admit.
+          A tested strategy for success
         </p>
       </motion.div>
 
@@ -114,9 +114,8 @@ const HowItWorks: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.4 + i * 0.15 }}
                   onHoverStart={() => setActiveStep(i)}
                   onHoverEnd={() => setActiveStep(null)}
-                  className={`flex flex-col items-center cursor-default transition-opacity duration-300 ${
-                    isOdd ? 'flex-col-reverse' : ''
-                  } ${isDimmed ? 'opacity-50' : 'opacity-100'}`}
+                  className={`flex flex-col items-center cursor-default transition-opacity duration-300 ${isOdd ? 'flex-col-reverse' : ''
+                    } ${isDimmed ? 'opacity-50' : 'opacity-100'}`}
                 >
                   {/* Card */}
                   <div
@@ -142,18 +141,16 @@ const HowItWorks: React.FC = () => {
                       Step {i + 1}
                     </p>
                     <h3
-                      className={`text-[15px] font-serif font-medium mb-2.5 leading-snug transition-colors duration-300 flex items-center gap-1.5 ${
-                        isActive ? 'text-brand-blue' : 'text-text-dark/90'
-                      }`}
+                      className={`text-[15px] font-serif font-medium mb-2.5 leading-snug transition-colors duration-300 flex items-center gap-1.5 ${isActive ? 'text-brand-blue' : 'text-text-dark/90'
+                        }`}
                     >
                       {step.title}
                       <ChevronRight
                         size={13}
-                        className={`transition-all duration-300 flex-shrink-0 ${
-                          isActive
-                            ? 'opacity-100 translate-x-0 text-brand-blue'
-                            : 'opacity-0 -translate-x-1'
-                        }`}
+                        className={`transition-all duration-300 flex-shrink-0 ${isActive
+                          ? 'opacity-100 translate-x-0 text-brand-blue'
+                          : 'opacity-0 -translate-x-1'
+                          }`}
                       />
                     </h3>
                     <p className="text-[11.5px] text-text-dark/55 leading-relaxed font-light">
@@ -192,7 +189,7 @@ const HowItWorks: React.FC = () => {
           transition={{ duration: 0.6, delay: 1.2 }}
           className="text-center mt-28 text-[10px] text-text-dark/18 tracking-[2px] uppercase font-medium"
         >
-          We don't just edit — we build your application like a project.
+          Multiple iterations till we get the end result we want
         </motion.p>
       </div>
 
@@ -257,7 +254,7 @@ const HowItWorks: React.FC = () => {
         ))}
 
         <p className="text-center mt-14 text-[10px] text-text-dark/18 tracking-[2px] uppercase font-medium">
-          We don't just edit — we build your application like a project.
+          Multiple iterations till we get the end result we want
         </p>
       </div>
 
